@@ -36,6 +36,24 @@
 /*
 http://ws.kcd.im/?ws=Testing&e=basic%20react%20test&em=
 */
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ItemList from '../item-list';
+
+test('component renders no items when empty array props passed', () => {
+  const container = document.createElement('div')
+  ReactDOM.render(<ItemList items={[]} />, container)
+  expect(container.textContent).toMatch('no items')
+})
+
+test('component renders items in props array', () => {
+  const container = document.createElement('div')
+  ReactDOM.render(<ItemList items={['apple', 'orange', 'pear']} />, container)
+  expect(container.textContent).toMatch('apple')
+  expect(container.textContent).toMatch('orange')
+  expect(container.textContent).toMatch('pear')
+})
+
 test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
