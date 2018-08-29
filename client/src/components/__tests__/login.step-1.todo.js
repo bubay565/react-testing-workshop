@@ -1,22 +1,43 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Login from '../login'
+
 // Basic unit test
 test('calls onSubmit with the username and password when submitted', () => {
   // Arrange
   // 🐨 create a fake object to hold the form field values (username and password)
+  const fakeObj = {
+    username: 'buwa',
+    password: 'testing12',
+  }
   // 🐨 create a jest.fn() for your submit handler
+  const submitHandler = jest.fn()
   // 🐨 render the Login component to a div
-  // 💰 const div = document.createElement('div')
+  const div = document.createElement('div')
+  ReactDOM.render(<Login onSubmit={submitHandler} />, div)
+
   //
   // 🐨 get the field nodes
-  // 💰 const inputs = div.querySelectorAll('input')
-  // 💰 const form = div.querySelector('form')
+  /* 
+  const inputs = div.querySelectorAll('input')
+  const usernameNode = inputs[0]
+  const passwordNode = inputs[1] 
+  */
+  const formNode = div.querySelector('form')
+  const {username, password} = formNode.elements
+  const submitButtonNode = div.querySelector('button')
   // 🐨 fill in the field values
-  //
+  username.value = fakeObj.username
+  password.value = fakeObj.password
   // Act
   // 🐨 submit the form:
-  // 💰 formNode.dispatchEvent(new window.Event('submit'))
+  formNode.dispatchEvent(new window.Event('submit'))
   //
   // Assert
   // 🐨 ensure your submit handler was called properly
+  expect(submitHandler).toHaveBeenCalledTimes(1)
+  expect(submitHandler).toHaveBeenCalledWith(fakeObj)
+  expect(submitButtonNode.type).toBe('submit')
 })
 
 //////// Elaboration & Feedback /////////
@@ -28,8 +49,8 @@ test('calls onSubmit with the username and password when submitted', () => {
 /*
 http://ws.kcd.im/?ws=Testing&e=login.step-1&em=
 */
-test.skip('I submitted my elaboration and feedback', () => {
-  const submitted = false // change this when you've submitted!
+test('I submitted my elaboration and feedback', () => {
+  const submitted = true // change this when you've submitted!
   expect(submitted).toBe(true)
 })
 ////////////////////////////////
